@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeoCorp // Medium — Crypto</title>
+  <meta name="color-scheme" content="dark light"/>
+  <style>
+    :root{
+      color-scheme: dark;
+      --bg:#0d1117; --panel:#161b22; --elev:#1b2130;
+      --text:#c9d1d9; --muted:#8b949e; --line:#30363d;
+      --accent:#58a6ff; --accent-2:#7289da;
+      --good:#2ea043; --bad:#f85149;
+      --shadow:0 10px 30px rgba(0,0,0,0.35);
+      --r:14px; --rsm:10px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        color-scheme: light;
+        --bg:#f6f8fa; --panel:#ffffff; --elev:#eef2f7;
+        --text:#24292f; --muted:#57606a; --line:#d0d7de;
+        --accent:#0969da; --accent-2:#3867d6;
+        --good:#1a7f37; --bad:#d1242f;
+      }
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1000px 600px at 10% -10%, rgba(88,166,255,0.08), transparent 60%),
+        radial-gradient(900px 500px at 110% 10%, rgba(114,137,218,0.06), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      letter-spacing:0.2px;
+    }
+    .wrap{max-width:980px;margin:0 auto;padding:28px 20px 48px}
+    .brand{
+      display:inline-flex;gap:10px;align-items:center;
+      color:var(--muted);font-size:.95rem;padding:8px 12px;
+      border:1px solid var(--line);border-radius:999px;
+      background:linear-gradient(180deg,var(--panel),var(--elev));
+      box-shadow:var(--shadow);
+    }
+    .title{
+      margin:14px 0 8px;font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:800;line-height:1.15;
+      background:linear-gradient(90deg,var(--text),var(--accent));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .subtitle{color:var(--muted);margin-bottom:18px}
+    .grid{display:grid;gap:18px;grid-template-columns:1.25fr 1fr}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    .card{
+      background:linear-gradient(180deg,var(--panel),var(--elev));
+      border:1px solid var(--line);border-radius:var(--r);
+      box-shadow:var(--shadow);padding:18px;
+    }
+    .section{display:grid;gap:14px;margin-top:22px}
+    .h3{margin:0 0 6px;font-size:1.05rem;color:var(--text)}
+    .muted{color:var(--muted)}
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      background:#0c1116;border:1px solid var(--line);
+      padding:10px 12px;border-radius:var(--rsm);overflow:auto
+    }
+    .kicker{color:var(--accent)}
+    .btn{
+      display:inline-block;background:linear-gradient(180deg,var(--accent),var(--accent-2));
+      color:#0b1117;border:1px solid transparent;padding:11px 16px;
+      border-radius:var(--rsm);font-weight:800;cursor:pointer;
+      transition:transform .06s ease, filter .2s ease;box-shadow:0 2px 0 rgba(0,0,0,.25)
+    }
+    .btn:hover{transform:translateY(-1px);filter:brightness(1.05)}
+    .form{display:grid;gap:10px}
+    label{color:var(--muted);font-weight:700;font-size:.95rem}
+    input[type="text"]{
+      width:100%;padding:12px 14px;border-radius:var(--rsm);
+      border:1px solid var(--line);background:#0c1116;color:var(--text);
+      outline:none;transition:border-color .2s ease, box-shadow .2s ease
+    }
+    input[type="text"]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(88,166,255,.25)}
+    .response{
+      margin-top:8px;padding:10px 12px;border-radius:var(--rsm);
+      border:1px solid var(--line);background:rgba(255,255,255,.03);display:none
+    }
+    .response.success{display:block;border-color:rgba(46,160,67,.45);background:rgba(46,160,67,.12)}
+    .response.error{display:block;border-color:rgba(248,81,73,.4);background:rgba(248,81,73,.12)}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:14px 0}
+    footer{text-align:center;color:var(--muted);margin-top:28px;font-size:.95rem}
+  </style>
+</head>
+<body>
+  <!-- decoy breadcrumb for source hunters -->
+  <!-- audit-note: l8xieee{grid_whisperer} -->
+
+  <div class="wrap">
+    <div class="brand">● NeoCorp / Medium — Crypto</div>
+    <h1 class="title">Shadows of the Digital Undercover</h1>
+    <p class="subtitle">Two locks. One pulse. The city hums while ciphers trade masks. Bring the right key, then rotate the grid. Flag format: <span class="kicker">l8xieee{...}</span></p>
+
+    <section class="grid">
+      <div class="card">
+        <h3 class="h3">Intercept // Stage α — Polyalphabetic</h3>
+        <p class="muted">An operator dumped a stream mid‑transit; it refuses to read until you speak its cadence. Patterns bend with the keyword. Align your ear.</p>
+        <div class="mono" id="vig-cipher">
+          Ciphertext (α): KPBFRXIVKDTYPEQ NQX QZKJZ VY KQXVJZ TQ OYJ VYCC EJVH ZJ ULZZRIXQZ VY RZKXJZ.
+        </div>
+        <p class="muted">The first voice won’t hand you the signature, only the message you need next.</p>
+      </div>
+
+      <div class="card">
+        <h3 class="h3">Payload // Stage β — The Plane Turns</h3>
+        <p class="muted">The second lock doesn’t walk a line; it moves in squares. Some masks fall only when the grid agrees with itself—when its measure refuses to vanish. Turn the plane the right way and the message steadies.</p>
+        <div class="mono" id="plane-cipher">
+          Ciphertext (β): The lattice hums; the map is set. When α speaks clearly, the plane will listen.
+        </div>
+        <p class="muted">When α resolves, steer the plane; the signature settles into its braces.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="card">
+        <h3 class="h3">Submit Proof</h3>
+        <form id="flagForm" class="form" action="YOUR_SUBMISSION_ENDPOINT" method="POST" novalidate>
+          <label for="flag">Enter final flag</label>
+          <input type="text" id="flag" name="flag" placeholder="l8xieee{...}" required />
+          <button type="submit" class="btn">Transmit</button>
+          <div id="responseBox" class="response" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+
+    <footer>End of transmission.</footer>
+  </div>
+
+  <script>
+    // Real final flag (change as needed)
+    const REAL  = "l8xieee{matrix_masks_fall}";
+    // Decoy that shows “green” locally but never advances
+    const DECOY = "l8xieee{grid_whisperer}";
+
+    const form = document.getElementById("flagForm");
+    const input = document.getElementById("flag");
+    const box = document.getElementById("responseBox");
+
+    form.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const value = input.value.trim();
+      if(!value){
+        setResponse("Empty signal. Transmit again.", "error");
+        return;
+      }
+      if(value === REAL){
+        setResponse("Valid signature. Channel unlocked.", "success");
+        // Optional: reveal/advance
+        // setTimeout(()=>location.href="next.html",600);
+      }else if(value === DECOY){
+        setResponse("Signature appears valid. Awaiting upstream confirmation...", "success");
+        // Do NOT advance; optionally log decoy:
+        // fetch(form.action,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({flag:value, decoy:true})});
+      }else{
+        setResponse("Signature rejected. Realign and retry.", "error");
+      }
+
+      // Optional: log attempts server-side
+      // fetch(form.action,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({flag:value})});
+    });
+
+    function setResponse(msg, type){
+      box.textContent = msg;
+      box.classList.remove("success","error");
+      box.classList.add(type);
+    }
+  </script>
+</body>
+</html>
