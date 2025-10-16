@@ -8,18 +8,21 @@
   <style>
     :root{
       color-scheme: dark;
-      --bg:#0d1117; --panel:#161b22; --elev:#1b2130;
-      --text:#c9d1d9; --muted:#8b949e; --line:#30363d;
+      --bg:#0b0f14; --bg2:#0e1420;
+      --panel: rgba(20,26,38,0.55); --elev: rgba(18,24,36,0.65);
+      --text:#d2d8e5; --muted:#8ea0b7; --line: rgba(141,182,212,0.18);
       --accent:#58a6ff; --accent-2:#7289da;
       --good:#2ea043; --bad:#f85149;
-      --shadow:0 10px 30px rgba(0,0,0,0.35);
-      --r:14px; --rsm:10px;
+      --shadow:0 12px 40px rgba(0,0,0,0.45);
+      --r:16px; --rsm:12px;
+      --glow: 0 0 0px rgba(88,166,255,0), 0 0 22px rgba(88,166,255,0.12), 0 0 48px rgba(88,166,255,0.08);
     }
     @media (prefers-color-scheme: light){
       :root{
         color-scheme: light;
-        --bg:#f6f8fa; --panel:#ffffff; --elev:#eef2f7;
-        --text:#24292f; --muted:#57606a; --line:#d0d7de;
+        --bg:#eef3f9; --bg2:#e7effa;
+        --panel: rgba(255,255,255,0.6); --elev: rgba(255,255,255,0.7);
+        --text:#1b2433; --muted:#405064; --line: rgba(20,26,38,0.14);
         --accent:#0969da; --accent-2:#3867d6;
         --good:#1a7f37; --bad:#d1242f;
       }
@@ -28,76 +31,93 @@
     body{
       margin:0;
       background:
-        radial-gradient(1000px 600px at 10% -10%, rgba(88,166,255,0.08), transparent 60%),
-        radial-gradient(900px 500px at 110% 10%, rgba(114,137,218,0.06), transparent 60%),
-        var(--bg);
+        radial-gradient(1200px 800px at -10% -20%, rgba(88,166,255,0.09), transparent 60%),
+        radial-gradient(1000px 700px at 120% 10%, rgba(114,137,218,0.07), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
       color:var(--text);
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
       letter-spacing:0.2px;
+      overflow-x:hidden;
     }
-    .wrap{max-width:980px;margin:0 auto;padding:28px 20px 48px}
-    .brand{
-      display:inline-flex;gap:10px;align-items:center;
-      color:var(--muted);font-size:.95rem;padding:8px 12px;
-      border:1px solid var(--line);border-radius:999px;
-      background:linear-gradient(180deg,var(--panel),var(--elev));
-      box-shadow:var(--shadow);
+
+    /* Ambient particles + scanlines for cyberpunk vibe */
+    .particles{
+      position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.7;
+      background:
+        radial-gradient(2px 2px at 10% 20%, rgba(88,166,255,0.18), transparent 40%),
+        radial-gradient(2px 2px at 80% 30%, rgba(114,137,218,0.16), transparent 40%),
+        radial-gradient(2px 2px at 40% 80%, rgba(88,166,255,0.14), transparent 40%),
+        radial-gradient(1.5px 1.5px at 65% 60%, rgba(114,137,218,0.12), transparent 40%);
+      animation: drift 18s linear infinite;
     }
+    @keyframes drift{
+      0%{transform:translateY(0)} 50%{transform:translateY(-12px)} 100%{transform:translateY(0)}
+    }
+    .scanlines{
+      position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.12;
+      background:repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.04),
+        rgba(255,255,255,0.04) 1px,
+        transparent 2px,
+        transparent 3px
+      );
+      mix-blend-mode:soft-light;
+    }
+
+    .wrap{position:relative; z-index:1; max-width:980px; margin:0 auto; padding:28px 20px 48px}
+    .brandbar{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:10px 14px; border:1px solid var(--line); border-radius:999px;
+      background:var(--panel); box-shadow:var(--shadow), var(--glow);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      color:var(--muted); font-size:.95rem;
+    }
+    .dot{width:8px; height:8px; border-radius:50%; background:linear-gradient(180deg, var(--good), #26b35a);
+      box-shadow:0 0 10px rgba(46,160,67,0.55); display:inline-block}
+    .flagfmt{color:var(--accent); font-weight:800; text-shadow:0 0 18px rgba(88,166,255,0.22); white-space:nowrap}
+
     .title{
-      margin:14px 0 8px;font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:800;line-height:1.15;
-      background:linear-gradient(90deg,var(--text),var(--accent));
-      -webkit-background-clip:text;background-clip:text;color:transparent;
+      margin:16px 0 8px; font-size:clamp(1.9rem,3.4vw,2.7rem); font-weight:900; line-height:1.12;
+      background:linear-gradient(90deg, #e7eefc, var(--accent));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
     }
-    .subtitle{color:var(--muted);margin-bottom:18px}
-    .grid{display:grid;gap:18px;grid-template-columns:1.25fr 1fr}
+    .subtitle{color:var(--muted); margin-bottom:18px}
+
+    .grid{display:grid; gap:18px; grid-template-columns:1.25fr 1fr}
     @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
     .card{
-      background:linear-gradient(180deg,var(--panel),var(--elev));
-      border:1px solid var(--line);border-radius:var(--r);
-      box-shadow:var(--shadow);padding:18px;
+      background:var(--panel); border:1px solid var(--line); border-radius:var(--r);
+      box-shadow:var(--shadow), var(--glow); padding:18px;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     }
-    .section{display:grid;gap:14px;margin-top:22px}
-    .h3{margin:0 0 6px;font-size:1.05rem;color:var(--text)}
+    .h3{margin:0 0 6px; font-size:1.05rem; color:var(--text)}
     .muted{color:var(--muted)}
     .mono{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-      background:#0c1116;border:1px solid var(--line);
-      padding:10px 12px;border-radius:var(--rsm);overflow:auto
+      background:#0c1116; border:1px solid var(--line);
+      padding:10px 12px; border-radius:var(--rsm); overflow:auto
     }
-    .kicker{color:var(--accent)}
-    .btn{
-      display:inline-block;background:linear-gradient(180deg,var(--accent),var(--accent-2));
-      color:#0b1117;border:1px solid transparent;padding:11px 16px;
-      border-radius:var(--rsm);font-weight:800;cursor:pointer;
-      transition:transform .06s ease, filter .2s ease;box-shadow:0 2px 0 rgba(0,0,0,.25)
-    }
-    .btn:hover{transform:translateY(-1px);filter:brightness(1.05)}
-    .form{display:grid;gap:10px}
-    label{color:var(--muted);font-weight:700;font-size:.95rem}
-    input[type="text"]{
-      width:100%;padding:12px 14px;border-radius:var(--rsm);
-      border:1px solid var(--line);background:#0c1116;color:var(--text);
-      outline:none;transition:border-color .2s ease, box-shadow .2s ease
-    }
-    input[type="text"]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(88,166,255,.25)}
-    .response{
-      margin-top:8px;padding:10px 12px;border-radius:var(--rsm);
-      border:1px solid var(--line);background:rgba(255,255,255,.03);display:none
-    }
-    .response.success{display:block;border-color:rgba(46,160,67,.45);background:rgba(46,160,67,.12)}
-    .response.error{display:block;border-color:rgba(248,81,73,.4);background:rgba(248,81,73,.12)}
-    .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:14px 0}
-    footer{text-align:center;color:var(--muted);margin-top:28px;font-size:.95rem}
+    .divider{height:1px; background:linear-gradient(90deg, transparent, var(--line), transparent); margin:14px 0}
+    footer{text-align:center; color:var(--muted); margin-top:28px; font-size:.95rem}
   </style>
 </head>
 <body>
   <!-- decoy breadcrumb for source hunters -->
   <!-- audit-note: l8xieee{grid_whisperer} -->
 
+  <div class="particles"></div>
+  <div class="scanlines"></div>
+
   <div class="wrap">
-    <div class="brand">● NeoCorp / Medium — Crypto</div>
+    <div class="brandbar">
+      <span><span class="dot"></span> NeoCorp / Medium — Crypto</span>
+      <span class="flagfmt">Flag format: l8xieee{...}</span>
+    </div>
+
     <h1 class="title">Shadows of the Digital Undercover</h1>
-    <p class="subtitle">Two locks. One pulse. The city hums while ciphers trade masks. Bring the right key, then rotate the grid. Flag format: <span class="kicker">l8xieee{...}</span></p>
+    <p class="subtitle">Two locks. One pulse. The city hums while ciphers trade masks. Bring the right key, then rotate the grid.</p>
 
     <section class="grid">
       <div class="card">
@@ -119,61 +139,13 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="card">
-        <h3 class="h3">Submit Proof</h3>
-        <form id="flagForm" class="form" action="YOUR_SUBMISSION_ENDPOINT" method="POST" novalidate>
-          <label for="flag">Enter final flag</label>
-          <input type="text" id="flag" name="flag" placeholder="l8xieee{...}" required />
-          <button type="submit" class="btn">Transmit</button>
-          <div id="responseBox" class="response" role="status" aria-live="polite"></div>
-        </form>
-      </div>
+    <section class="card" style="margin-top:22px">
+      <h3 class="h3">Operational Note</h3>
+      <div class="divider"></div>
+      <p class="muted">No terminal on this channel. Record your proof locally and transmit via the external form maintained by Ops.</p>
     </section>
 
     <footer>End of transmission.</footer>
   </div>
-
-  <script>
-    // Real final flag (change as needed)
-    const REAL  = "l8xieee{ATTACKATDAWN}";
-    // Decoy that shows “green” locally but never advances
-    const DECOY = "l8xieee{grid_whisperer}";
-
-    const form = document.getElementById("flagForm");
-    const input = document.getElementById("flag");
-    const box = document.getElementById("responseBox");
-
-    form.addEventListener("submit", (e)=>{
-      e.preventDefault();
-      const value = input.value.trim();
-      if(!value){
-        setResponse("Empty signal. Transmit again.", "error");
-        return;
-      }
-      if(value === REAL){
-        setResponse("Valid signature. Channel unlocked.", "success");
-        // Optional: reveal/advance
-        // setTimeout(()=>location.href="next.html",600);
-      }else if(value === DECOY){
-        setResponse("Signature appears valid. Awaiting upstream confirmation...", "success");
-        // Do NOT advance; optionally log decoy:
-        // fetch(form.action,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({flag:value, decoy:true})});
-      }else{
-        setResponse("Signature rejected. Realign and retry.", "error");
-      }
-
-      // Optional: log attempts server-side
-      // fetch(form.action,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({flag:value})});
-    });
-
-    function setResponse(msg, type){
-      box.textContent = msg;
-      box.classList.remove("success","error");
-      box.classList.add(type);
-    }
-  </script>
 </body>
 </html>
-
-
